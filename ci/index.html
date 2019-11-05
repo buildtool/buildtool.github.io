@@ -1,4 +1,112 @@
 <!doctype html><html><head><title>Continuous Integration &middot; build-tools</title><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=author content=build-tools><meta name=description content=desc><meta http-equiv=content-language content=en-us><meta name=generator content="Hugo 0.58.3"><link rel=icon href=favicon.ico><meta name=theme-color content=#000><meta name=viewport content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"><meta name=theme-color content=black><meta name=twitter:card content=summary_large_image><meta name=twitter:title content=build-tools><meta name=twitter:description content=desc><meta name=twitter:image content=https://buildtools.io/card.png><meta name=og:title content=build-tools><meta name=og:description content=desc><meta name=og:url content=https://buildtools.io/><meta name=og:image content=https://buildtools.io/card.png><meta property=og:type content=website><meta name=apple-mobile-web-app-capable content=yes><meta name=apple-mobile-web-app-status-bar-style content=black><link rel=stylesheet href=https://buildtools.io/css/index.css><link rel=apple-touch-icon href=https://buildtools.io/apple-touch-icon.png><link rel="shortcut icon" href=https://buildtools.io/favicon.ico type=image/x-icon></head><body><div class=Wrapper><div class=Container><div class=Header><a href=https://buildtools.io/><div class="Title center"><img alt="build-tools Logo" src=https://github.com/buildtool.png height=140>
 <span class=text>build-tools</span>
-<span class=subtext></span></div></a></div><div class=Content-wrapper><div class=Sidebar><div class=Menu><div class=item><a href=https://buildtools.io/>Home</a></div><div class=item><a href=https://buildtools.io/introduction/>Introduction</a></div><div class=item><a href=https://buildtools.io/installation/>Installation</a></div><div class=item><a href=https://buildtools.io/conventions/>Conventions</a></div><div class=item><a href=https://buildtools.io/quickstart/>Quickstart</a></div><div class=item><a href=https://buildtools.io/commands/>Commands</a></div><div class=item><a href=https://buildtools.io/ci/>Continuous Integration</a></div><div class=item><a href=https://buildtools.io/config/>Configuration files</a></div><div class=item><a href=https://buildtools.io/registry/>Registry</a></div><div class=item><a href=https://buildtools.io/environments/>Environments</a></div><div class=item><a href=https://buildtools.io/contributing/>Contributing</a></div></div></div><div class=Content><div class=Page><h1>Continuous Integration</h1><p>Command recognize which CI/CD environment they are executed in based on which environment variables are present.</p><table><thead><tr><th align=left>Environment variable</th><th align=left>CI/CD</th><th align=left>Scaffolding</th></tr></thead><tbody><tr><td align=left><code>BUILDKITE_PIPELINE_SLUG</code></td><td align=left><a href=https://buildkite.com>buildkite</a></td><td align=left>✅</td></tr><tr><td align=left><code>CI_PROJECT_NAME</code></td><td align=left><a href=https://docs.gitlab.com/ee/ci>gitlab ci</a></td><td align=left>✅</td></tr><tr><td align=left><code>RUNNER_WORKSPACE</code></td><td align=left><a href=https://github.com/features/actions>github actions</a></td><td align=left></td></tr><tr><td align=left><code>TEAMCITY_PROJECT_NAME</code></td><td align=left><a href=https://www.jetbrains.com/teamcity>teamcity</a></td><td align=left></td></tr><tr><td align=left><code>BUILD_REPOSITORY_NAME</code></td><td align=left><a href=https://azure.microsoft.com/en-us/services/devops/pipelines/>azure devops</a></td><td align=left></td></tr></tbody></table><blockquote><p>Last updated by Peter Svensson on October 29, 2019.
+<span class=subtext></span></div></a></div><div class=Content-wrapper><div class=Sidebar><div class=Menu><div class=item><a href=https://buildtools.io/>Home</a></div><div class=item><a href=https://buildtools.io/introduction/>Introduction</a></div><div class=item><a href=https://buildtools.io/installation/>Installation</a></div><div class=item><a href=https://buildtools.io/conventions/>Conventions</a></div><div class=item><a href=https://buildtools.io/quickstart/>Quickstart</a></div><div class=item><a href=https://buildtools.io/commands/>Commands</a></div><div class=item><a href=https://buildtools.io/ci/>Continuous Integration</a></div><div class=item><a href=https://buildtools.io/config/>Configuration files</a></div><div class=item><a href=https://buildtools.io/registry/>Registry</a></div><div class=item><a href=https://buildtools.io/environments/>Environments</a></div><div class=item><a href=https://buildtools.io/k8s/>Kubernetes</a></div><div class=item><a href=https://buildtools.io/contributing/>Contributing</a></div></div></div><div class=Content><div class=Page><h1>Continuous Integration</h1><p>Command recognize which CI/CD environment they are executed in based on which environment variables are present.</p><table><thead><tr><th align=left>Environment variable</th><th align=left>CI/CD</th></tr></thead><tbody><tr><td align=left><code>BUILDKITE_PIPELINE_SLUG</code></td><td align=left><a href=#Buildkite>Buildkite</a></td></tr><tr><td align=left><code>CI_PROJECT_NAME</code></td><td align=left><a href="#Gitlab CI">Gitlab CI</a></td></tr><tr><td align=left><code>RUNNER_WORKSPACE</code></td><td align=left><a href="#Github Actions">Github Actions</a></td></tr><tr><td align=left><code>TEAMCITY_PROJECT_NAME</code></td><td align=left><a href=#TeamCity>TeamCity</a></td></tr><tr><td align=left><code>BUILD_REPOSITORY_NAME</code></td><td align=left><a href="#Azure Devops">Azure Devops</a></td></tr></tbody></table><h2 id=examples>Examples</h2><h3 id=buildkite>Buildkite</h3><p><a href=https://buildkite.com>Buildkite</a> is configured with <code>.buildkite/pipeline.yml</code> file in your project.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml>steps:
+  - command: |<span style=color:#f1fa8c>-
+</span><span style=color:#f1fa8c>      build</span>
+      push
+    label: build
+
+  - wait
+
+  - command: |<span style=color:#f1fa8c>-
+</span><span style=color:#f1fa8c>      ${BUILD_TOOLS_PATH}/deploy staging</span>
+    label: Deploy to staging
+    branches: <span style=color:#f1fa8c>&#34;master&#34;</span>
+
+  - block: <span style=color:#f1fa8c>&#34;:rocket: Release PROD&#34;</span>
+    branches: <span style=color:#f1fa8c>&#34;master&#34;</span>
+
+  - command: |<span style=color:#f1fa8c>-
+</span><span style=color:#f1fa8c>      ${BUILD_TOOLS_PATH}/deploy prod</span>
+    label: Deploy PROD
+    branches: <span style=color:#f1fa8c>&#34;master&#34;</span></code></pre></div><h3 id=gitlab-ci>Gitlab CI</h3><p><a href=https://docs.gitlab.com/ee/ci>Gitlab CI</a> is configured with a <code>.gitlab-ci.yaml</code> file in your project.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml>stages:
+  - build
+  - deploy-staging
+  - deploy-prod
+
+variables:
+  DOCKER_HOST: tcp://docker:<span style=color:#bd93f9>2375</span>/
+
+image: buildtool/build-tools:latest
+
+build:
+  stage: build
+  services:
+    - docker:dind
+  script:
+  - build
+  - push
+
+deploy-to-staging:
+  stage: deploy-staging
+  when: on_success
+  script:
+    - echo Deploy to staging.
+    - deploy staging
+  environment:
+    name: staging
+
+deploy-to-prod:
+  stage: deploy-prod
+  when: on_success
+  script:
+    - echo Deploy to PROD.
+    - deploy prod
+  environment:
+    name: prod
+  only:
+    - master</code></pre></div><h3 id=github-actions>Github Actions</h3><p>TODO</p><h3 id=teamcity>TeamCity</h3><p><a href=https://www.jetbrains.com/teamcity>TeamCity</a> can be configured with a <code>.teamcity/settings.kts</code> file in your project.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-kotlin data-lang=kotlin><span style=color:#ff79c6>import</span> jetbrains.buildServer.configs.kotlin.v2018_2.*
+<span style=color:#ff79c6>import</span> jetbrains.buildServer.configs.kotlin.v2018_2.buildSteps.ScriptBuildStep
+<span style=color:#ff79c6>import</span> jetbrains.buildServer.configs.kotlin.v2018_2.buildSteps.script
+<span style=color:#ff79c6>import</span> jetbrains.buildServer.configs.kotlin.v2018_2.triggers.finishBuildTrigger
+<span style=color:#ff79c6>import</span> jetbrains.buildServer.configs.kotlin.v2018_2.triggers.vcs
+
+version = <span style=color:#f1fa8c>&#34;2019.1&#34;</span>
+
+project {
+    buildType(BuildAndPush)
+}
+
+<span style=color:#ff79c6>object</span> <span style=color:#50fa7b>BuildAndPush</span> : BuildType({
+    name = <span style=color:#f1fa8c>&#34;BuildAndPush&#34;</span>
+
+    steps {
+        script {
+            name = <span style=color:#f1fa8c>&#34;build and push&#34;</span>
+            scriptContent = <span style=color:#f1fa8c>&#34;&#34;&#34;
+</span><span style=color:#f1fa8c>                build &amp;&amp; push
+</span><span style=color:#f1fa8c>            &#34;&#34;&#34;</span>.trimIndent()
+            dockerImage = <span style=color:#f1fa8c>&#34;buildtool/buildtools&#34;</span>
+            dockerImagePlatform = ScriptBuildStep.ImagePlatform.Linux
+            dockerPull = <span style=color:#ff79c6>true</span>
+            dockerRunParameters = <span style=color:#f1fa8c>&#34;&#34;&#34;
+</span><span style=color:#f1fa8c>                -v /var/run/docker.sock:/var/run/docker.sock
+</span><span style=color:#f1fa8c>                --rm
+</span><span style=color:#f1fa8c>            &#34;&#34;&#34;</span>.trimIndent()
+        }
+    }
+
+    triggers {
+        vcs {}
+    }
+})</code></pre></div><h3 id=azure-devops>Azure Devops</h3><p><a href=https://azure.microsoft.com/en-us/services/devops/pipelines/>Azure Devops</a> is configured with a <code>azure-pipelines.yml</code> file in your project.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml>resources:
+  containers:
+  - container: build-tools
+    image: buildtool/build-tools:latest
+
+jobs:
+- job: build_and_deploy
+  pool:
+    vmImage: <span style=color:#f1fa8c>&#39;Ubuntu 16.04&#39;</span>
+  container: build-tools
+  steps:
+  - script: <span style=color:#f1fa8c>|
+</span><span style=color:#f1fa8c>      build</span>
+      push
+    name: build
+    env:
+      QUAY_PASSWORD: $(QUAY_PASSWORD)
+  - script: deploy staging
+    name: deploy_staging
+    condition: succeeded()</code></pre></div><blockquote><p>Last updated by Peter Svensson on November 5, 2019.
 <a href=https://github.com/buildtool/build-tools/edit/master/www/content/ci.md>Improve this page</a>.</p></blockquote></div><div class=Footer><p>© 2019 buildtool</p></div><script src=https://buildtools.io/js/index.js></script></div></div></div></body></html>
