@@ -65,14 +65,11 @@ jobs:
       DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
       DOCKERHUB_NAMESPACE: sparetimecoders
     steps:
-      <span style=color:#f1fa8c>-
-</span><span style=color:#f1fa8c>        name: Checkout</span>
+      - name: Checkout
         uses: actions/checkout@v1
-      <span style=color:#f1fa8c>-
-</span><span style=color:#f1fa8c>        name: build</span>
+      - name: build
         uses: buildtool/build-action@v1
-      <span style=color:#f1fa8c>-
-</span><span style=color:#f1fa8c>        name: push</span>
+      - name: push
         uses: buildtool/push-action@v1</code></pre></div><p>Read more about our actions here:
 * <a href=https://github.com/buildtool/build-action>build-action</a>
 * <a href=https://github.com/buildtool/push-action>push-action</a>
