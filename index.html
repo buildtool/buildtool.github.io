@@ -162,7 +162,7 @@ $ tree
 $ cat .buildtools.yaml
 registry:
   dockerhub:
-    repository: buildtool
+    namespace: buildtool
 environments:
   - name: <span style=color:#8be9fd;font-style:italic>local</span>
     context: docker-desktop
@@ -189,7 +189,7 @@ $ <span style=color:#8be9fd;font-style:italic>cd</span> ..
 
 $ build -printconfig</code></pre></div><h3 id=buildtools-yaml><code>.buildtools.yaml</code></h3><p>A typical configuration file consists of a <code>registry</code> config and a list of <code>environments</code> to use.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml>registry:
   dockerhub:
-    repository: buildtool
+    namespace: buildtool
 environments:
   local-test:
     context: docker-desktop
