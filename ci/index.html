@@ -5,13 +5,13 @@
 </span><span style=color:#f1fa8c>      build</span>
       push
     label: build
-
+    plugins:
+      - docker<span style=color:#6272a4>#v3.3.0:</span>
+          image: buildtool/build-tools
+          volumes:
+            - <span style=color:#f1fa8c>&#34;/var/run/docker.sock:/var/run/docker.sock&#34;</span>
+          propagate-environment: <span style=color:#ff79c6>true</span>
   - wait
-
-  - command: |<span style=color:#f1fa8c>-
-</span><span style=color:#f1fa8c>      ${BUILD_TOOLS_PATH}/deploy staging</span>
-    label: Deploy to staging
-    branches: <span style=color:#f1fa8c>&#34;master&#34;</span>
 
   - block: <span style=color:#f1fa8c>&#34;:rocket: Release PROD&#34;</span>
     branches: <span style=color:#f1fa8c>&#34;master&#34;</span>
@@ -19,7 +19,13 @@
   - command: |<span style=color:#f1fa8c>-
 </span><span style=color:#f1fa8c>      ${BUILD_TOOLS_PATH}/deploy prod</span>
     label: Deploy PROD
-    branches: <span style=color:#f1fa8c>&#34;master&#34;</span></code></pre></div><h3 id=gitlab-ci>Gitlab CI</h3><p><a href=https://docs.gitlab.com/ce/ci>Gitlab CI</a> is configured with a <code>.gitlab-ci.yaml</code> file in your project.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml>stages:
+    branches: <span style=color:#f1fa8c>&#34;master&#34;</span>
+    plugins:
+      - docker<span style=color:#6272a4>#v3.3.0:</span>
+          image: buildtool/build-tools
+          volumes:
+            - <span style=color:#f1fa8c>&#34;/var/run/docker.sock:/var/run/docker.sock&#34;</span>
+          propagate-environment: <span style=color:#ff79c6>true</span></code></pre></div><h3 id=gitlab-ci>Gitlab CI</h3><p><a href=https://docs.gitlab.com/ce/ci>Gitlab CI</a> is configured with a <code>.gitlab-ci.yaml</code> file in your project.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml>stages:
   - build
   - deploy-staging
   - deploy-prod
@@ -126,5 +132,5 @@ jobs:
       QUAY_PASSWORD: $(QUAY_PASSWORD)
   - script: deploy staging
     name: deploy_staging
-    condition: succeeded()</code></pre></div><blockquote><p>Last updated by Peter Svensson on November 12, 2019.
+    condition: succeeded()</code></pre></div><blockquote><p>Last updated by Peter Svensson on December 20, 2019.
 <a href=https://github.com/buildtool/build-tools/edit/master/www/content/ci.md>Improve this page</a>.</p></blockquote></div><div class=Footer><p>© 2019 buildtool</p></div><script src=https://buildtools.io/js/index.js></script></div></div></div></body></html>
