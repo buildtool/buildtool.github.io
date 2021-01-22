@@ -1,4 +1,4 @@
-<!doctype html><html><head><title>Configuration files &middot; build-tools</title><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=author content=build-tools><meta name=description content=desc><meta http-equiv=content-language content=en-us><meta name=generator content="Hugo 0.58.3"><link rel=icon href=favicon.ico><meta name=theme-color content=#000><meta name=viewport content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"><meta name=theme-color content=black><meta name=twitter:card content=summary_large_image><meta name=twitter:title content=build-tools><meta name=twitter:description content=desc><meta name=twitter:image content=https://buildtools.io/card.png><meta name=og:title content=build-tools><meta name=og:description content=desc><meta name=og:url content=https://buildtools.io/><meta name=og:image content=https://buildtools.io/card.png><meta property=og:type content=website><meta name=apple-mobile-web-app-capable content=yes><meta name=apple-mobile-web-app-status-bar-style content=black><link rel=stylesheet href=https://buildtools.io/css/index.css><link rel=apple-touch-icon href=https://buildtools.io/apple-touch-icon.png><link rel="shortcut icon" href=https://buildtools.io/favicon.ico type=image/x-icon></head><body><div class=Wrapper><div class=Container><div class=Header><a href=https://buildtools.io/><div class="Title center"><img alt="build-tools Logo" src=https://github.com/buildtool.png height=140>
+<!doctype html><html><head><title>Configuration files &#183; build-tools</title><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=author content="build-tools"><meta name=description content="desc"><meta http-equiv=content-language content="en-us"><meta name=generator content="Hugo 0.79.1"><link rel=icon href=favicon.ico><meta name=theme-color content="#000"><meta name=viewport content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"><meta name=theme-color content="black"><meta name=twitter:card content="summary_large_image"><meta name=twitter:title content="build-tools"><meta name=twitter:description content="desc"><meta name=twitter:image content="https://buildtools.io/card.png"><meta name=og:title content="build-tools"><meta name=og:description content="desc"><meta name=og:url content="https://buildtools.io/"><meta name=og:image content="https://buildtools.io/card.png"><meta property="og:type" content="website"><meta name=apple-mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-status-bar-style content="black"><link rel=stylesheet href=https://buildtools.io/css/index.css><link rel=apple-touch-icon href=https://buildtools.io/apple-touch-icon.png><link rel="shortcut icon" href=https://buildtools.io/favicon.ico type=image/x-icon></head><body><div class=Wrapper><div class=Container><div class=Header><a href=https://buildtools.io/><div class="Title center"><img alt="build-tools Logo" src=https://github.com/buildtool.png height=140>
 <span class=text>build-tools</span>
 <span class=subtext></span></div></a></div><div class=Content-wrapper><div class=Sidebar><div class=Menu><div class=item><a href=https://buildtools.io/>Home</a></div><div class=item><a href=https://buildtools.io/introduction/>Introduction</a></div><div class=item><a href=https://buildtools.io/installation/>Installation</a></div><div class=item><a href=https://buildtools.io/conventions/>Conventions</a></div><div class=item><a href=https://buildtools.io/quickstart/>Quickstart</a></div><div class=item><a href=https://buildtools.io/commands/>Commands</a></div><div class=item><a href=https://buildtools.io/ci/>Continuous Integration</a></div><div class=item><a href=https://buildtools.io/config/>Configuration files</a></div><div class=item><a href=https://buildtools.io/registry/>Registry</a></div><div class=item><a href=https://buildtools.io/environments/>Environments</a></div><div class=item><a href=https://buildtools.io/k8s/>Kubernetes</a></div><div class=item><a href=https://buildtools.io/contributing/>Contributing</a></div></div></div><div class=Content><div class=Page><h1>Configuration files</h1><p>Configuration and setup is done in <code>.buildtools.yaml</code> files.
 Those files must be present in the project folder or upwards in the directory structure.
@@ -11,7 +11,8 @@ $ tree
 │   ├── project1
 │   └── project2
 └── customer2
-    └── project1</code></pre></div><p>Here we can choose to put a <code>.buildtools.yaml</code> file in the different <code>customer</code> directories since they (most likely) have different deployment configuration.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh>$ <span style=color:#8be9fd;font-style:italic>pwd</span>
+    └── project1
+</code></pre></div><p>Here we can choose to put a <code>.buildtools.yaml</code> file in the different <code>customer</code> directories since they (most likely) have different deployment configuration.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh>$ <span style=color:#8be9fd;font-style:italic>pwd</span>
 ~/source/
 $ cat .buildtools.yaml
 registry:
@@ -41,19 +42,22 @@ $ build -printconfig
 
 $ <span style=color:#8be9fd;font-style:italic>cd</span> ..
 
-$ build -printconfig</code></pre></div><h3 id=buildtools-yaml><code>.buildtools.yaml</code></h3><p>A typical configuration file consists of a <code>registry</code> config and a list of <code>environments</code> to use.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml>registry:
-  dockerhub:
-    namespace: buildtool
-environments:
-  local-test:
-    context: docker-desktop
-  staging:
-    context: staging-aws-eu-west<span style=color:#bd93f9>-1</span>
-    namespace: my-test </code></pre></div><h3 id=configuration-from-environment>Configuration from environment</h3><p>As an option file can be created by defining an environment variable in the build pipeline named <code>BUILDTOOLS_CONTENT</code>.
+$ build -printconfig
+</code></pre></div><h3 id=buildtoolsyaml><code>.buildtools.yaml</code></h3><p>A typical configuration file consists of a <code>registry</code> config and a list of <code>environments</code> to use.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#ff79c6>registry</span>:
+  <span style=color:#ff79c6>dockerhub</span>:
+    <span style=color:#ff79c6>namespace</span>: buildtool
+<span style=color:#ff79c6>environments</span>:
+  <span style=color:#ff79c6>local-test</span>:
+    <span style=color:#ff79c6>context</span>: docker-desktop
+  <span style=color:#ff79c6>staging</span>:
+    <span style=color:#ff79c6>context</span>: staging-aws-eu-west-1
+    <span style=color:#ff79c6>namespace</span>: my-test 
+</code></pre></div><h3 id=configuration-from-environment>Configuration from environment</h3><p>As an option file can be created by defining an environment variable in the build pipeline named <code>BUILDTOOLS_CONTENT</code>.
 The value should be a base64-encoded string. On MacOS the value can be created and copied to the clipboard using the following snippet:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh>$ cat - <span style=color:#f1fa8c>&lt;&lt;EOF | base64 -w0 | pbcopy
 </span><span style=color:#f1fa8c>environments:
 </span><span style=color:#f1fa8c>  local-test:
 </span><span style=color:#f1fa8c>    context: docker-desktop
 </span><span style=color:#f1fa8c>)
-</span><span style=color:#f1fa8c>EOF</span></code></pre></div><p>See the following sections for information on how to configure the different parts of the configuration files.</p><blockquote><p>Last updated by Peter Svensson on November 29, 2019.
-<a href=https://github.com/buildtool/build-tools/edit/master/www/content/config.md>Improve this page</a>.</p></blockquote></div><div class=Footer><p>© 2019 buildtool</p></div><script src=https://buildtools.io/js/index.js></script></div></div></div></body></html>
+</span><span style=color:#f1fa8c>EOF</span>
+</code></pre></div><p>See the following sections for information on how to configure the different parts of the configuration files.</p><blockquote><p>Last updated by Peter Svensson on November 29, 2019.
+<a href=https://github.com/buildtool/build-tools/edit/main/www/content/config.md>Improve this page</a>.</p></blockquote></div><div class=Footer><p>© 2019 buildtool</p></div><script src=https://buildtools.io/js/index.js></script></div></div></div></body></html>
