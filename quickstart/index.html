@@ -32,7 +32,7 @@ git commit -m <span class=s2>&quot;Init&quot;</span>
 </code></pre></div> Build the docker image:</p> <div class=highlight><pre><span></span><code>build
 </code></pre></div> <p>After the build completes you should see output like</p> <div class=highlight><pre><span></span><code>...
 Successfully tagged noregistry/quickstart:latest
-</code></pre></div> <p>Try to run your newly built docker image: <div class=highlight><pre><span></span><code>docker run --rm -p <span class=m>8080</span>:8080 noregistry/peter:master
+</code></pre></div> <p>Try to run your newly built docker image: <div class=highlight><pre><span></span><code>docker run --rm -p <span class=m>8080</span>:8080 noregistry/quickstart:latest
 </code></pre></div> and try to access it: <div class=highlight><pre><span></span><code>curl localhost:8080/buildtools
 </code></pre></div> You should see a response like: <div class=highlight><pre><span></span><code>Hello, buildtools!
 </code></pre></div></p> <p>Let's try to deploy it to our local Kubernetes cluster, in order for this to work we need a Kubernetes descriptor file. Create a <code>k8s</code> folder and a file <code>deploy.yaml</code>:</p> <div class=highlight><pre><span></span><code><span class=c1># k8s/deploy.yaml</span>
